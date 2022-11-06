@@ -72,7 +72,7 @@ stages:
   jobs:
   - job: terraform_validate
     steps:
-    - task: TerraformInstaller@0
+    - task: TerraformInstaller@0123
       inputs:
         terraformVersion: ${{variables.tf_version}}
     - task: TerraformTaskV2@2
@@ -99,7 +99,7 @@ stages:
   jobs:
     - job: terraform_plan
       steps:
-        - task: TerraformInstaller@0
+        - task: TerraformInstaller@0123
           inputs:
             terraformVersion: ${{ variables.tf_version }}
         - task: TerraformTaskV2@2
@@ -134,7 +134,7 @@ stages:
         deploy:
           steps:
             - checkout: self
-            - task: TerraformInstaller@0
+            - task: TerraformInstaller@0123
               inputs:
                 terraformVersion: ${{ variables.tf_version }}
             - task: TerraformTaskV2@2
@@ -169,7 +169,7 @@ stages:
 #   jobs:
 #     - job: terraform_apply
 #       steps:
-#         - task: TerraformInstaller@0
+#         - task: TerraformInstaller@0123
 #           inputs:
 #             terraformVersion: ${{ variables.tf_version }}
 #         - task: TerraformTaskV2@2
@@ -204,7 +204,7 @@ stages:
   jobs:
     - job: terraform_destroy
       steps:
-        - task: TerraformInstaller@0
+        - task: TerraformInstaller@0123
           inputs:
             terraformVersion: ${{ variables.tf_version }}
         - task: TerraformTaskV2@2
