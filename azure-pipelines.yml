@@ -38,7 +38,7 @@ stages:
       - task: AzureCLI@2
         displayName: 'Azure CLI :Create Storage Account，Key Vault And Set KeyVault Secret'
         inputs:
-          azureSubscription: '免费试用(11bb468f-44d6-4bc9-9e03-5c02113a8604)'
+          azureSubscription: '11bb468f-44d6-4bc9-9e03-5c02113a8604'
           scriptType: 'bash'
           scriptLocation: 'inlineScript'
           inlineScript: |
@@ -63,7 +63,7 @@ stages:
       - task: AzureKeyVault@2
         displayName: 'Azure Key Vault :Get Storage Access Secret'
         inputs:
-          azureSubscription: '免费试用(11bb468f-44d6-4bc9-9e03-5c02113a8604)'
+          azureSubscription: '11bb468f-44d6-4bc9-9e03-5c02113a8604'
           KeyVaultName: '$(keyvault)'
           SecretsFilter: 'terraform-stste-storage-key'
           RunAsPreJob: false
