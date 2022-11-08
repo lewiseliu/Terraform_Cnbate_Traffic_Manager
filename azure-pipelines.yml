@@ -35,30 +35,30 @@ stages:
   jobs:
    - job: azure_cli_script
      steps: 
-      - task: AzureCLI@2
-        displayName: 'Azure CLI :Create Storage Account，Key Vault And Set KeyVault Secret'
-        inputs:
-          azureSubscription: '11bb468f-44d6-4bc9-9e03-5c02113a8604'
-          scriptType: 'ps'
-          scriptLocation: 'inlineScript'
-          inlineScript: |
-              # create azure resource group
-              az group create --location eastasia --name $(terraform_rg)
+      # - task: AzureCLI@2
+      #   displayName: 'Azure CLI :Create Storage Account，Key Vault And Set KeyVault Secret'
+      #   inputs:
+      #     azureSubscription: '11bb468f-44d6-4bc9-9e03-5c02113a8604'
+      #     scriptType: 'ps'
+      #     scriptLocation: 'inlineScript'
+      #     inlineScript: |
+      #         # create azure resource group
+      #         az group create --location eastasia --name $(terraform_rg)
       
-              # create azure storage account
-              az storage account create --name $(storage_account) --resource-group $(terraform_rg) --location eastasia --sku Standard_LRS
+      #         # create azure storage account
+      #         az storage account create --name $(storage_account) --resource-group $(terraform_rg) --location eastasia --sku Standard_LRS
       
-              # create storage account container for tf state 
-              az storage container create --name $(storage_account_container) --account-name $(storage_account)
+      #         # create storage account container for tf state 
+      #         az storage container create --name $(storage_account_container) --account-name $(storage_account)
       
-              # query storage key and set variable
-              ACCOUNT_KEY=$(az storage account keys list --resource-group $(terraform_rg) --account-name $(storage_account) --query "[?keyName == 'key1'][value]" --output tsv)
+      #         # query storage key and set variable
+      #         ACCOUNT_KEY=$(az storage account keys list --resource-group $(terraform_rg) --account-name $(storage_account) --query "[?keyName == 'key1'][value]" --output tsv)
       
-              # create azure keyvault
-              az keyvault create --name $(keyvault) --resource-group $(terraform_rg) --location eastasia --enable-soft-delete false
+      #         # create azure keyvault
+      #         az keyvault create --name $(keyvault) --resource-group $(terraform_rg) --location eastasia --enable-soft-delete false
       
-              # set keyvault secret,secret value is ACCOUNT_KEY
-              az keyvault secret set --name $(keyvault_sc) --vault-name $(keyvault)  --value $ACCOUNT_KEY
+      #         # set keyvault secret,secret value is ACCOUNT_KEY
+      #         az keyvault secret set --name $(keyvault_sc) --vault-name $(keyvault)  --value $ACCOUNT_KEY
        
       - task: AzureKeyVault@2
         displayName: 'Azure Key Vault :Get Storage Access Secret'
