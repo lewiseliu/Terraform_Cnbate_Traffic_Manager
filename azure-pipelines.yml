@@ -39,7 +39,7 @@ stages:
         displayName: 'Azure CLI :Create Storage Account，Key Vault And Set KeyVault Secret'
         inputs:
           azureSubscription: '11bb468f-44d6-4bc9-9e03-5c02113a8604'
-          scriptType: 'bash'
+          scriptType: 'pscore'
           scriptLocation: 'inlineScript'
           inlineScript: |
               # create azure resource group
