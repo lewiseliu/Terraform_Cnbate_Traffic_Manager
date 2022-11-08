@@ -35,7 +35,7 @@ stages:
   jobs:
    - job: azure_cli_script
      steps: 
-      # - task: AzureCLI@2
+      # - task: AzureCLI@2   # comment out since already created
       #   displayName: 'Azure CLI :Create Storage Account，Key Vault And Set KeyVault Secret'
       #   inputs:
       #     azureSubscription: '11bb468f-44d6-4bc9-9e03-5c02113a8604'
@@ -65,7 +65,7 @@ stages:
         inputs:
           azureSubscription: '11bb468f-44d6-4bc9-9e03-5c02113a8604'
           KeyVaultName: '$(keyvault)'
-          SecretsFilter: 'terraform-stste-storage-key'
+          SecretsFilter: 'terraform-stste-storage-key111'  # change to real secret name
           RunAsPreJob: false
 
 - stage: terraform_validate
@@ -81,7 +81,7 @@ stages:
         provider: 'azurerm'
         command: 'init'
         # commandOptions: '-backend-config="access_key=$(terraform-stste-storage-key)"'
-        backendServiceArm: '免费试用(11bb468f-44d6-4bc9-9e03-5c02113a8604)'
+        backendServiceArm: '11bb468f-44d6-4bc9-9e03-5c02113a8604'
         backendAzureRmResourceGroupName: $(terraform_rg)
         backendAzureRmStorageAccountName: $(storage_account)
         backendAzureRmContainerName: $(storage_account_container)
@@ -108,7 +108,7 @@ stages:
             provider: 'azurerm'
             command: 'init'
             # commandOptions: '-backend-config="access_key=$(terraform-stste-storage-key)"'
-            backendServiceArm: '免费试用(11bb468f-44d6-4bc9-9e03-5c02113a8604)'
+            backendServiceArm: '11bb468f-44d6-4bc9-9e03-5c02113a8604'
             backendAzureRmResourceGroupName: $(terraform_rg)
             backendAzureRmStorageAccountName: $(storage_account)
             backendAzureRmContainerName: $(storage_account_container)
@@ -118,7 +118,7 @@ stages:
           inputs:
             provider: 'azurerm'
             command: 'plan'
-            environmentServiceNameAzureRM: '免费试用(11bb468f-44d6-4bc9-9e03-5c02113a8604)'
+            environmentServiceNameAzureRM: '11bb468f-44d6-4bc9-9e03-5c02113a8604'
             workingDirectory: '$(System.DefaultWorkingDirectory)/src/model/'
 
 - stage: terraform_apply
@@ -143,7 +143,7 @@ stages:
                 provider: 'azurerm'
                 command: 'init'
                 # commandOptions: '-backend-config="access_key=$(terraform-stste-storage-key)"'
-                backendServiceArm: '免费试用(11bb468f-44d6-4bc9-9e03-5c02113a8604)'
+                backendServiceArm: '11bb468f-44d6-4bc9-9e03-5c02113a8604'
                 backendAzureRmResourceGroupName: $(terraform_rg)
                 backendAzureRmStorageAccountName: $(storage_account)
                 backendAzureRmContainerName: $(storage_account_container)
@@ -153,7 +153,7 @@ stages:
               inputs:
                 provider: 'azurerm'
                 command: 'plan'
-                environmentServiceNameAzureRM: '免费试用(11bb468f-44d6-4bc9-9e03-5c02113a8604)'
+                environmentServiceNameAzureRM: '11bb468f-44d6-4bc9-9e03-5c02113a8604)'
                 workingDirectory: '$(System.DefaultWorkingDirectory)/src/model/'
             - task: TerraformTaskV2@2
               inputs:
