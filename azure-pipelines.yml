@@ -4,12 +4,14 @@
 # https://aka.ms/yaml
 
 trigger:
-- main
+- main   # A push trigger specifies which branches cause a continuous integration build to run.
 
-pool: Default
-  # vmImage: ubuntu-latest
+# schedules: [ cron ] # scheduled triggers for the pipeline.
 
-parameters:
+pool: Default   # Specify a private pool by name.
+  # vmImage: ubuntu-latest  # Full syntax for using demands and Microsoft-hosted pools.
+
+parameters:  # Runtime parameters passed to a pipeline, which able to be updated in runtime.
   - name: deployEnv
     displayName: Selecting a Deployment Environment???
     type: string
@@ -19,7 +21,7 @@ parameters:
     - uat
     - prd
   
-variables:
+variables:  # Define variables to use in your pipeline, include list and mapping.
   - name: tf_version
     value: 'latest'
   - name: env_name
@@ -30,7 +32,7 @@ variables:
     ${{elseif eq(parameters['DeployEnv'],'prd') }}:
       value: 'prd'
 
-stages:
+stages:   # Collection of related jobs.
 - stage: script
   jobs:
    - job: azure_cli_script
@@ -59,7 +61,7 @@ stages:
       
       #         # set keyvault secret,secret value is ACCOUNT_KEY
       #         az keyvault secret set --name $(keyvault_sc) --vault-name $(keyvault)  --value $ACCOUNT_KEY
-       
+      
       - task: AzureKeyVault@2
         displayName: 'Azure Key Vault :Get Storage Access Secret'
         inputs:
@@ -72,7 +74,7 @@ stages:
   jobs:
   - job: terraform_validate
     steps:
-    - task: TerraformInstaller@0
+    - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@0
       inputs:
         terraformVersion: ${{variables.tf_version}}
     - task: TerraformTaskV2@2
