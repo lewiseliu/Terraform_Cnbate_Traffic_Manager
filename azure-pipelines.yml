@@ -72,7 +72,7 @@ stages:
   jobs:
   - job: terraform_validate
     steps:
-    - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@0
+    - task: TerraformInstaller@0
       inputs:
         terraformVersion: ${{variables.tf_version}}
     - task: TerraformTaskV2@2
